@@ -63,10 +63,10 @@ describe('Testing the image processing endpoint', function () {
             }
         });
     }); });
-    it('Using the endpoint with a wrong parameters name returns 400', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('Using the endpoint with a wrong parameter name returns 400', function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/resize?wrong=Mohamed&width=150&height=150').expect(400)];
+                case 0: return [4 /*yield*/, request.get('/resize?wrong=encenadaport&width=150&height=150').expect(400)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -86,7 +86,7 @@ describe('Testing the image processing endpoint', function () {
     it('Using the endpoint with a valid lead returns 200', function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/resize?name=Mohamed&width=150&height=150').expect(200)];
+                case 0: return [4 /*yield*/, request.get('/resize?name=encenadaport&width=150&height=150').expect(200)];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

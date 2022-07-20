@@ -12,8 +12,8 @@ describe('Testing the image processing endpoint', () => {
     await request.get('/resize?name=wrong').expect(400);
   });
 
-  it('Using the endpoint with a wrong parameters name returns 400', async () => {
-    await request.get('/resize?wrong=Mohamed&width=150&height=150').expect(400);
+  it('Using the endpoint with a wrong parameter name returns 400', async () => {
+    await request.get('/resize?wrong=encenadaport&width=150&height=150').expect(400);
   });
 
   it('Using the endpoint with a valid parameters but name does not have a photo returns 404', async () => {
@@ -21,6 +21,6 @@ describe('Testing the image processing endpoint', () => {
   });
 
   it('Using the endpoint with a valid lead returns 200', async () => {
-    await request.get('/resize?name=Mohamed&width=150&height=150').expect(200);
+    await request.get('/resize?name=encenadaport&width=150&height=150').expect(200);
   });
 });
