@@ -1,2 +1,2 @@
 # image-processing-api
-Api to resizing Image
+Api to resizing Imagee
