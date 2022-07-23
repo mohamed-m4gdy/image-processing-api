@@ -1,38 +1,62 @@
-import { Router, Request, Response } from 'express';
+import express from 'express';
+import { imageExists, imageResize } from '../../utils/utils'
 import path from 'path';
-import fs, { existsSync } from 'fs';
-import sharp from 'sharp';
+import { existsSync, readdirSync} from 'fs';
 
-const resize = Router();
+const resize = express.Router();
 
-resize.get('/', async (req: Request, res: Response) => {
-  const name = req.query.name as string;
-  const width = req.query.width as string;
-  const height = req.query.height as string;
-  const imageLocation = path.resolve('./') + `/images/${name}.jpg`;
+resize.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
 
-  // check if the folder doesn't exist
-  if (!fs.existsSync('./images/thumb')) {
-    fs.mkdirSync('./images/thumb');
+  const cash = imageExists(req);
+
+  if (!cash[0]) {
+    const imageLocation = `./assets/full/${req.query.name}.jpg`
+    const width = Number(req.query.width as string);
+    const height = Number(req.query.height as string);
+
+
+    // Handling errors if width or height is undefined or missing
+    if (isNaN(width) || isNaN(height)) {
+      if (isNaN(width)) {
+        res.status(400).send('Width Parameter Is Missing');
+      }
+      if (isNaN(height)) {
+        res.status(400).send('Height Parameter Is Missing');
+      }
+      res.end();
+      return;
+    };
+
+    // If the image name is wrong
+    if (!existsSync(imageLocation)) {
+      const exitsImages = readdirSync('./assets/full/');
+
+      res.status(404).end(`Image Not Found Exits Images Is ${exitsImages}`);
+      return;
+    } else {
+      // resize image if the image
+      const resizedImage = await imageResize(imageLocation, width, height, cash[1]);
+      if (resizedImage) {
+        res.sendFile(path.resolve(cash[1]), (err) => {
+          if(err) {
+            console.log(err);
+            res.send(err.message);
+          }
+        });
+      } else {
+        res.status(422).send('Something Wrong');
+        return
+      };
+    }
+  } else {
+    res.sendFile(path.resolve(cash[1]), (err) => {
+      if (err) {
+        res.send(err.message);
+      }/* else {
+        console.log('test');
+      }*/
+    });
   }
-  // If the parameter is wrong
-  if (name === undefined || width === undefined || height === undefined) {
-    return res.status(400).send('Parameters Not Found Or Parameters Missing');
-  }
-
-  // If the image name is wrong
-  if (existsSync(imageLocation) === false) {
-    return res.status(404).send('Image Not Found');
-  }
-
-  // Resizing Image
-  await sharp(imageLocation)
-    .resize({ width: Number(width), height: Number(height), fit: 'cover' })
-    .toFile(`./images/thumb/${name}_${height}_${width}.jpg`);
-  const resizedImage = path.resolve('./') + `/images/thumb/${name}_${height}_${width}.jpg`;
-
-  // Return Image
-  res.sendFile(resizedImage);
 });
 
 export default resize;
