@@ -3,6 +3,7 @@ Api to resizing Images
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 ## How this work and sample request:
 
 http://localhost:3000/api/resize?name=encenadaport&width=150&height=150
@@ -20,6 +21,16 @@ fileName_width_height.jpg
 
 ## dependencies, run the following command:
 ### npm install
+=======
+## To install all modules run
+### npm install
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+## How this work
+You have to add a query paramters after /resize endpoint with Name and width and height to resize the image for example,
+http://localhost:3000/resize?name=imagename&width=150&height=150
+>>>>>>> 5755938956be7d78a57301756ddd788276f9d53b
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -27,12 +38,15 @@ fileName_width_height.jpg
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 ## To have the Server Run run the following command:
 
 npm run start
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
+=======
+>>>>>>> 5755938956be7d78a57301756ddd788276f9d53b
 ### npm run build
 To compile typescript files to javascript, in build folder
 
