@@ -2,8 +2,6 @@
 Api to resizing Images
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
-
-<<<<<<< HEAD
 ## How this work and sample request:
 ```
 http://localhost:3000/api/resize?name=encenadaport&width=150&height=150
